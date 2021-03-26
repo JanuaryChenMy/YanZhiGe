@@ -1,27 +1,33 @@
 <template>
-  <div id="nav">
-    <!-- <router-link to="/">Home</router-link> | -->
-    <!-- <router-link to="/about">About</router-link> -->
-    <Nav />
+  <div id="app">
+    <van-sticky>
+      <Nav />
+    </van-sticky>
+    <div class="routerView">
+      <router-view />
+    </div>
   </div>
-  <router-view/>
 </template>
 <script>
-import Nav from '@/components/header/Nav.vue'
+import Nav from "@/components/header/Nav.vue";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Nav
-  }
-}
+    Nav,
+  },
+};
 </script>
 <style lang="less">
 #app {
-  font-family: pingFangSC-Regular, Microsoft YaHei, Avenir, Helvetica, Arial, sans-serif;
+  font-family: pingFangSC-Regular, Microsoft YaHei, Avenir, Helvetica, Arial,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  .routerView {
+    height: calc(100vh - 50px);
+    overflow: scroll;
+  }
 }
-
 </style>

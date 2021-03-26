@@ -20,16 +20,20 @@ export default {
 <style scoped lang="less">
 .Nav {
   width: 100%;
-  background-color: #222451;
+  background-color: rgb(0, 0, 0);
   height: 46px;
   display: flex;
   align-items: center;
   text-align: center;
+  position: relative;
   p.headText {
     width: 100%;
     position: absolute;
-    color: #babe45;
-    font-size: 16px;
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 46px;
+    padding: 0;
+    margin: 0;
   }
 }
 </style>

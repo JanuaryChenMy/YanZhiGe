@@ -6,12 +6,20 @@ import 'amfe-flexible'
 import router from './router'
 import store from './store'
 import {
-  Button, Popup, Collapse, CollapseItem
+  Button,
+  Popup,
+  Collapse,
+  CollapseItem,
+  Swipe,
+  SwipeItem,
+  Sticky,
+  List, Cell
 } from 'vant';
 let myApp = createApp(App).use(store).use(router)
 const Arr = [
   Button,
-  Popup, Collapse, CollapseItem
+  SwipeItem, Sticky, List, Cell,
+  Popup, Collapse, CollapseItem, Swipe
 ]
 Arr.forEach(element => myApp.use(element))
 myApp.mount('#app')

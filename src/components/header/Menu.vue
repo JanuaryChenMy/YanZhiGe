@@ -5,40 +5,119 @@
       round
       size="small"
       plain
-      type="primary"
+      type="default"
       @click="showPopup('open')"
     />
     <van-popup
       v-model:show="show"
       round
       position="left"
-      :style="{ height: '100%', width: '45%', backgroundColor: '#f6f7f9' }"
+      :style="{ height: '100%', width: '50%', backgroundColor: '#f6f7f9' }"
     >
       <div class="menuList">
-        <router-link to="/One" @click.passive="handleClickRouter"
-          >雁之歌培训介绍</router-link
+        <router-link
+          to="/"
+          :class="[activeRouter === 'Home' ? 'activeRouter' : 'rrr']"
+          @click.passive="handleClickRouter"
+          >首页</router-link
         >
-        <router-link to="/Two" @click.passive="handleClickRouter"
-          >消费者导航</router-link
-        >
-        <router-link to="/Three" @click.passive="handleClickRouter"
-          >经销商之道</router-link
-        >
-        <router-link to="/Four" @click.passive="handleClickRouter"
-          >国际领袖内造</router-link
-        >
-        <van-collapse v-model="activeNames" valueClass="jj">
-          <van-collapse-item title="Yes大学" name="1">
-            <router-link to="/Five" @click.passive="handleClickRouter"
-              >万人会场</router-link
+        <van-collapse v-model="activeNames1" valueClass="jj" accordion>
+          <!-- 一级 -->
+          <div v-for="OneItem in menuList" :key="OneItem.name">
+            <!-- 点击 -->
+            <router-link
+              v-if="OneItem.list === undefined"
+              :to="'/' + OneItem.router"
+              :key="OneItem.name"
+              @click.passive="handleClickRouter([OneItem.name])"
+              :class="[activeNames1 === OneItem.name ? 'activeRouter' : 'rrr']"
+              >{{ OneItem.name }}
+            </router-link>
+            <!-- 下拉 -->
+            <van-collapse-item
+              v-else
+              :title="OneItem.name"
+              :name="OneItem.name"
+              :key="OneItem.name"
             >
-            <router-link to="/Six" @click.passive="handleClickRouter"
-              >阵型努力</router-link
-            >
-            <router-link to="/Seven" @click.passive="handleClickRouter"
-              >易效能</router-link
-            >
-          </van-collapse-item>
+              <!-- 二级 -->
+              <div v-for="TwoItem in OneItem.list" :key="TwoItem.name">
+                <!-- 点击 -->
+                <router-link
+                  v-if="TwoItem.list === undefined"
+                  :to="'/' + OneItem.router + '/' + TwoItem.router"
+                  :key="TwoItem.name"
+                  @click.passive="
+                    handleClickRouter([OneItem.name, TwoItem.name])
+                  "
+                  :class="[
+                    activeNames2 === TwoItem.name ? 'activeRouter' : 'rrr',
+                  ]"
+                  >{{ TwoItem.name }}
+                </router-link>
+                <!-- 下拉 -->
+                <van-collapse
+                  v-model="activeNames2"
+                  valueClass="jj"
+                  v-else
+                  accordion
+                >
+                  <van-collapse-item
+                    :title="TwoItem.name"
+                    :name="TwoItem.name"
+                    :key="TwoItem.name"
+                  >
+                    <!-- 三级 -->
+                    <div
+                      v-for="ThreeItem in TwoItem.list"
+                      :key="ThreeItem.name"
+                    >
+                      <!-- 点击 -->
+                      <router-link
+                        v-if="ThreeItem.list === undefined"
+                        :to="
+                          '/' +
+                          OneItem.router +
+                          '/' +
+                          TwoItem.router +
+                          '/' +
+                          ThreeItem.router
+                        "
+                        :key="ThreeItem.name"
+                        @click.passive="
+                          handleClickRouter([
+                            OneItem.name,
+                            TwoItem.name,
+                            ThreeItem.name,
+                          ])
+                        "
+                        :class="[
+                          activeNames3 === ThreeItem.name
+                            ? 'activeRouter'
+                            : 'rrr',
+                        ]"
+                        >{{ ThreeItem.name }}
+                      </router-link>
+                      <!-- 下拉 -->
+                      <van-collapse
+                        v-model="activeNames3"
+                        valueClass="jj"
+                        v-else
+                      >
+                        <van-collapse-item
+                          :title="ThreeItem.name"
+                          :name="ThreeItem.name"
+                          :key="ThreeItem.name"
+                        >
+                          <!-- 三级 -->
+                        </van-collapse-item>
+                      </van-collapse>
+                    </div>
+                  </van-collapse-item>
+                </van-collapse>
+              </div>
+            </van-collapse-item>
+          </div>
         </van-collapse>
       </div>
     </van-popup>
@@ -46,8 +125,19 @@
 </template>
 
 <script>
-import MenuImg from "../../assets/img/liebiaomoshi_kuai.png";
+import MenuImg from "../../../public/img/liebiaomoshi_kuai.png";
+import menuList from "../../../public/jsData/MenuRouter";
 import { ref } from "vue";
+const obj = {
+  Home: 0,
+  One: 1,
+  Two: 2,
+  Three: 3,
+  Four: 4,
+  Five: 5,
+  Six: 6,
+  Seven: 7,
+};
 export default {
   name: "Menu",
   props: {
@@ -59,19 +149,67 @@ export default {
   setup() {
     const show = ref(false);
     const showPopup = (isFalse) => {
-      show.value = isFalse === 'open' ? true : false;
+      show.value = isFalse === "open" ? true : false;
+    };
+    const activeRouter = ref(0);
+    const changeActiveRouter = (val) => {
+      activeRouter.value = val;
+    };
+    const activeNames1 = ref("1");
+    const activeNames2 = ref("2");
+    const activeNames3 = ref("3");
+    const changeActiveNames = (val) => {
+      activeNames1.value = val;
     };
     const handleClickRouter = (e) => {
-      console.log(2222)
-      showPopup()
+      if (Array.isArray(e)) {
+        e[0] && (activeNames1.value = e[0]);
+        e[1] && (activeNames2.value = e[1]);
+        e[2] && (activeNames3.value = e[2]);
+      }
+      showPopup();
     };
-    const activeNames = ref(["0"]);
     return {
       show,
       showPopup,
-      activeNames,
+      activeNames1,
+      activeNames2,
+      activeNames3,
+      changeActiveNames,
       handleClickRouter,
+      activeRouter,
+      changeActiveRouter,
+      menuList: menuList.menuList,
     };
+  },
+  watch: {
+    "$route.path": function (newVal, oldVal) {
+      var index1 = newVal.indexOf("/");
+      var index2 = console.log("⚠检测 ~ index2", index2);
+      newVal.indexOf("/", index1 + 1) === -1
+        ? null
+        : newVal.indexOf("/", index1 + 1);
+      this.changeActiveRouter(
+        newVal.slice(1, index2 || newVal.length) || "Home"
+      );
+    },
+  },
+  mounted() {
+    setTimeout(() => {
+      console.log(1111111111111111, this.$route.params);
+      // 初始化菜单栏的默认按钮颜色
+      var index1 = this.$route.path.indexOf("/");
+      var index2 =
+        this.$route.path.indexOf("/", index1 + 1) === -1
+          ? null
+          : this.$route.path.indexOf("/", index1 + 1);
+      const type =
+        this.$route.path.slice(1, index2 || this.$route.path.length) || "Home";
+
+      this.changeActiveRouter(type);
+      // 初始化菜单栏的展开状态
+      [5, 6, 7].includes(type) && this.changeActiveNames(["1"]);
+    }, 0);
   },
 };
 </script>
@@ -116,17 +254,20 @@ export default {
     float: left;
     width: 100%;
     .van-collapse-item {
-      ::v-deep .van-cell {
+      :deep .van-cell {
         padding: 10px 8px;
         text-align: left;
         font-weight: 500;
         background-color: #f6f7f9;
         border-bottom: 1px solid #ccc;
       }
-      ::v-deep .van-collapse-item__content {
+      :deep .van-collapse-item__content {
         padding: 0 8px;
       }
     }
+  }
+  .activeRouter {
+    background-color: #c9c9c9 !important;
   }
 }
 </style>
