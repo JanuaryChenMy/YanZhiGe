@@ -18,7 +18,7 @@
         <router-link
           to="/"
           :class="[activeRouter === 'Home' ? 'activeRouter' : 'rrr']"
-          @click.passive="handleClickRouter"
+          @click.passive="handleClickRouter(['Home'], 'Home')"
           >首页</router-link
         >
         <van-collapse v-model="activeNames1" valueClass="jj" accordion>
@@ -29,8 +29,8 @@
               v-if="OneItem.list === undefined"
               :to="'/' + OneItem.router"
               :key="OneItem.name"
-              @click.passive="handleClickRouter([OneItem.name])"
-              :class="[activeNames1 === OneItem.name ? 'activeRouter' : 'rrr']"
+              @click.passive="handleClickRouter([OneItem.name], OneItem.name)"
+              :class="[activeRouter === OneItem.name ? 'activeRouter' : 'rrr']"
               >{{ OneItem.name }}
             </router-link>
             <!-- 下拉 -->
@@ -48,10 +48,13 @@
                   :to="'/' + OneItem.router + '/' + TwoItem.router"
                   :key="TwoItem.name"
                   @click.passive="
-                    handleClickRouter([OneItem.name, TwoItem.name])
+                    handleClickRouter(
+                      [OneItem.name, TwoItem.name],
+                      TwoItem.name
+                    )
                   "
                   :class="[
-                    activeNames2 === TwoItem.name ? 'activeRouter' : 'rrr',
+                    activeRouter === TwoItem.name ? 'activeRouter' : 'rrr',
                   ]"
                   >{{ TwoItem.name }}
                 </router-link>
@@ -85,14 +88,13 @@
                         "
                         :key="ThreeItem.name"
                         @click.passive="
-                          handleClickRouter([
-                            OneItem.name,
-                            TwoItem.name,
-                            ThreeItem.name,
-                          ])
+                          handleClickRouter(
+                            [OneItem.name, TwoItem.name, ThreeItem.name],
+                            ThreeItem.name
+                          )
                         "
                         :class="[
-                          activeNames3 === ThreeItem.name
+                          activeRouter === ThreeItem.name
                             ? 'activeRouter'
                             : 'rrr',
                         ]"
@@ -125,19 +127,9 @@
 </template>
 
 <script>
-import MenuImg from "../../../public/img/liebiaomoshi_kuai.png";
-import menuList from "../../../public/jsData/MenuRouter";
+import MenuImg from "../../assets/img/liebiaomoshi_kuai.png";
+import menuList from "../../assets/jsData/MenuRouter";
 import { ref } from "vue";
-const obj = {
-  Home: 0,
-  One: 1,
-  Two: 2,
-  Three: 3,
-  Four: 4,
-  Five: 5,
-  Six: 6,
-  Seven: 7,
-};
 export default {
   name: "Menu",
   props: {
@@ -151,7 +143,7 @@ export default {
     const showPopup = (isFalse) => {
       show.value = isFalse === "open" ? true : false;
     };
-    const activeRouter = ref(0);
+    const activeRouter = ref("Home");
     const changeActiveRouter = (val) => {
       activeRouter.value = val;
     };
@@ -161,12 +153,13 @@ export default {
     const changeActiveNames = (val) => {
       activeNames1.value = val;
     };
-    const handleClickRouter = (e) => {
+    const handleClickRouter = (e, activeName) => {
       if (Array.isArray(e)) {
         e[0] && (activeNames1.value = e[0]);
         e[1] && (activeNames2.value = e[1]);
         e[2] && (activeNames3.value = e[2]);
       }
+      activeName && changeActiveRouter(activeName);
       showPopup();
     };
     return {
@@ -185,10 +178,10 @@ export default {
   watch: {
     "$route.path": function (newVal, oldVal) {
       var index1 = newVal.indexOf("/");
-      var index2 = console.log("⚠检测 ~ index2", index2);
-      newVal.indexOf("/", index1 + 1) === -1
-        ? null
-        : newVal.indexOf("/", index1 + 1);
+      var index2 =
+        newVal.indexOf("/", index1 + 1) === -1
+          ? null
+          : newVal.indexOf("/", index1 + 1);
       this.changeActiveRouter(
         newVal.slice(1, index2 || newVal.length) || "Home"
       );
@@ -196,19 +189,11 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      console.log(1111111111111111, this.$route.params);
       // 初始化菜单栏的默认按钮颜色
-      var index1 = this.$route.path.indexOf("/");
-      var index2 =
-        this.$route.path.indexOf("/", index1 + 1) === -1
-          ? null
-          : this.$route.path.indexOf("/", index1 + 1);
-      const type =
-        this.$route.path.slice(1, index2 || this.$route.path.length) || "Home";
-
-      this.changeActiveRouter(type);
+      const arr = this.$route.matched.map((e) => e.name);
+      this.handleClickRouter(arr);
+      // this.changeActiveRouter(type);
       // 初始化菜单栏的展开状态
-      [5, 6, 7].includes(type) && this.changeActiveNames(["1"]);
     }, 0);
   },
 };
@@ -226,6 +211,40 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
+  }
+  a {
+    font-weight: 600;
+  }
+  // a:after{
+  //   content: '';
+  //   position: absolute;
+  //   right: 10px;
+  //   margin-top: 6px;
+  //   width: 10px;
+  //   height: 10px;
+  //   background-image: url("../../assets/img/go.png");
+  //   background-size: 100% 100%;
+  // }
+
+  // ::v-deep .van-cell__title {
+  //   font-weight: 600;
+  //   ::v-deep .van-collapse-item__wrapper .van-cell__title {
+  //     font-weight: 100;
+  //   }
+  // }
+  .van-collapse .van-collapse-item {
+    ::v-deep .van-cell__title {
+      font-weight: 600;
+    }
+    a {
+      font-weight: 500;
+    }
+
+    .van-collapse-item {
+      ::v-deep .van-cell__title {
+        font-weight: 500;
+      }
+    }
   }
   .van-button--small {
     height: 30px;

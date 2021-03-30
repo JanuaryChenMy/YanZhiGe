@@ -12,13 +12,13 @@ import {
   CollapseItem,
   Swipe,
   SwipeItem,
-  Sticky,
+  Sticky,Badge,
   List, Cell
 } from 'vant';
 let myApp = createApp(App).use(store).use(router)
 const Arr = [
   Button,
-  SwipeItem, Sticky, List, Cell,
+  SwipeItem, Sticky, List, Cell,Badge,
   Popup, Collapse, CollapseItem, Swipe
 ]
 Arr.forEach(element => myApp.use(element))

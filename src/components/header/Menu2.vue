@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import MenuImg from "../../public/img/liebiaomoshi_kuai.png";
+import MenuImg from "../assets/img/liebiaomoshi_kuai.png";
 // import { getLocaltion } from "../../assets/jsData/cons";
 import { ref } from "vue";
 const obj = {

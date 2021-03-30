@@ -40,7 +40,7 @@ export default {
           name: '商业计划书',
           router: 'BusinessPlan'
         }, {
-          name: '从月入五千美金到财富自由',
+          name: '月五千美金到财富自由',
           router: 'GetRichQuick'
         }
       ]
@@ -165,10 +165,10 @@ export default {
             router: 'Anti-agingAcademy'
           }, {
             name: '行销商学院',
-            isRouterUrl: '/System/ThreeLevelTraining/ScientistsFightAging/BTrain'
+            router: 'MarketingBusinessSchool'
           }, {
             name: '人文学院',
-            isRouterUrl: '/System/ThreeLevelTraining/ScientistsFightAging/ATrain'
+            router: 'CollegeofHumanities'
           }]
         }, {
           name: '三级培训',

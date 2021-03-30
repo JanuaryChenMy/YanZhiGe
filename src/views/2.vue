@@ -17,20 +17,7 @@ export default {
   setup() {
     const leftBarList = [
       { title: "我的世界", id: 1,list:[
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'},
-        {textName:'我是标题111',description:'我是一段描述',playVolume:1299,time:'6:32'}
+        
       ] },
       { title: "胜者为王", id: 1,list:[
         {textName:'我是标题222',description:'我是一段描述',playVolume:1299,time:'6:32'},

@@ -9,9 +9,9 @@
 </template>
 
 <script>
-import oo from "../../public/img/1.jpg";
-import ii from "../../public/img/2.png";
-import jj from "../../public/img/3.jpg";
+import oo from "../assets/img/1.jpg";
+import ii from "../assets/img/2.png";
+import jj from "../assets/img/3.jpg";
 
 export default {
   name: "Swiper",

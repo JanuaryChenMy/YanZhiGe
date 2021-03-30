@@ -20,17 +20,19 @@ export default {
 <style scoped lang="less">
 .Nav {
   width: 100%;
-  background-color: rgb(0, 0, 0);
+  // background-color: #4b4b4b;
   height: 46px;
   display: flex;
   align-items: center;
   text-align: center;
   position: relative;
+  background: linear-gradient(#000, #303030); /* 标准的语法 */
+
   p.headText {
     width: 100%;
     position: absolute;
     color: #ffffff;
-    font-size: 18px;
+    font-size: 16px;
     line-height: 46px;
     padding: 0;
     margin: 0;

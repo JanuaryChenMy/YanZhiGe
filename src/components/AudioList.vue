@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import datas from "../../public/jsData/cons";
-import audioIcon from "../../public/img/audioIcon.png";
+import datas from "../assets/jsData/cons";
+import audioIcon from "../assets/img/audioIcon.png";
 export default {
   name: "AudioList",
   props: {
