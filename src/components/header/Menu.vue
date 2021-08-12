@@ -45,7 +45,7 @@
                 <!-- 点击 -->
                 <router-link
                   v-if="TwoItem.list === undefined"
-                  :to="'/' + OneItem.router + '/' + TwoItem.router"
+                  :to="'/' + TwoItem.router"
                   :key="TwoItem.name"
                   @click.passive="
                     handleClickRouter(
@@ -78,14 +78,7 @@
                       <!-- 点击 -->
                       <router-link
                         v-if="ThreeItem.list === undefined"
-                        :to="
-                          '/' +
-                          OneItem.router +
-                          '/' +
-                          TwoItem.router +
-                          '/' +
-                          ThreeItem.router
-                        "
+                        :to="'/' + ThreeItem.router"
                         :key="ThreeItem.name"
                         @click.passive="
                           handleClickRouter(

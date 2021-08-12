@@ -14,48 +14,56 @@ import Detail from '../views/Detail.vue'
 import MenuRouter from '../assets/jsData/MenuRouter'
 import MenuList from '../views/MenuList.vue'
 import Layout from '../views/Layout.vue'
+import Login from '../views/Login.vue'
+import Register from '../views/Register.vue'
 const MenuRouterList = MenuRouter.menuList
 const routes = () => {
   const route = [{
     path: '/',
     name: 'Home',
     component: Home
+  },
+  {
+    path: '/Login',
+    name: 'Login',
+    component: Login
+  },
+  {
+    path: '/Register',
+    name: 'Register',
+    component: Register
   }]
   MenuRouterList.forEach(oneElement => {
     const oneRouter = {
       path: '/' + oneElement.router,
       name: oneElement.name,
       component: Layout,
-      children: []
     }
     if (oneElement.list) {
       oneElement.list.forEach(twoElement => {
         if (oneElement.router) {
           const twoRouter = {
-            path: '/' + oneElement.router + '/' + twoElement.router,
+            path: '/' + twoElement.router,
             name: twoElement.name,
             component: Layout,
-            children: []
           }
           if (twoElement.list) {
             twoElement.list.forEach(threeElement => {
               const threeRouter = {
-                path: '/' + oneElement.router + '/' + twoElement.router + '/' + threeElement.router,
+                path: '/' + threeElement.router,
                 name: threeElement.name,
                 component: Layout,
-                children: []
               }
               if (threeElement.lattice) {
                 threeElement.lattice.forEach(ThreeLatticeElement => {
                   if (ThreeLatticeElement.router) {
                     const threeLatticeRouter = {
-                      path: '/' + oneElement.router + '/' + twoElement.router + '/' + threeElement.router + '/' + ThreeLatticeElement.router,
+                      path: '/' + ThreeLatticeElement.router,
                       name: ThreeLatticeElement.name,
                       component: MenuList,
-                      children: []
                     }
                     // 跳转九宫格页
-                    threeRouter.children.push(threeLatticeRouter)
+                    route.push(threeLatticeRouter)
                   }
                 })
                 threeRouter.component = Boxs
@@ -66,45 +74,43 @@ const routes = () => {
                 // 跳转列表页
                 threeRouter.component = MenuList
               }
-              twoRouter.children.push(threeRouter)
+              route.push(threeRouter)
             })
           } else if (twoElement.lattice) {
             twoElement.lattice.forEach(twoLatticeElement => {
               if (twoLatticeElement.router) {
                 const twoLatticeRouter = {
-                  path: '/' + oneElement.router + '/' + twoElement.router + '/' + twoLatticeElement.router,
+                  path: '/' + twoLatticeElement.router,
                   name: twoLatticeElement.name,
                   component: MenuList,
-                  children: []
                 }
                 // 跳转九宫格页
-                twoRouter.children.push(twoLatticeRouter)
+                route.push(twoLatticeRouter)
               }
             })
             twoRouter.component = Boxs
             twoRouter.props = {
               latticeList: twoElement.lattice
             }
+            route.push(twoRouter)
           } else {
             // 跳转列表页
             twoRouter.component = MenuList
+            route.push(twoRouter)
           }
-          oneRouter.children.push(twoRouter)
         }
       })
     } else if (oneElement.lattice) {
       oneElement.lattice.forEach(oneLatticeElement => {
         if (oneLatticeElement.router) {
-          // console.log(oneLatticeElement, '/' + oneElement.router + '/' + oneLatticeElement.router)
           const oneLatticeRouter = {
-            path: '/' + oneElement.router + '/' + oneLatticeElement.router,
+            path: '/' + oneLatticeElement.router,
             name: oneLatticeElement.name,
             component: MenuList,
-            children: []
           }
           // 跳转九宫格页
           // oneRouter.component = MenuList
-          oneRouter.children.push(oneLatticeRouter)
+          route.push(oneLatticeRouter)
         }
       })
       oneRouter.component = Boxs

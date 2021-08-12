@@ -61,10 +61,10 @@ export default {
   },
   methods: {
     dd(item) {
-      console.log(item)
-      const router = this.$route.matched[this.$route.matched.length-1].path
-      console.log("⚠检测 ~ router", this.$route.matched)
-      this.$router.push(router + '/' + item.router);
+      console.log(item);
+      const router = this.$route.matched[this.$route.matched.length - 1].path;
+      console.log("⚠检测 ~ router", this.$route.matched);
+      this.$router.push("/" + item.router);
     },
   },
 };
@@ -73,10 +73,10 @@ export default {
 .Boxs {
   height: calc(100vh - 250px);
   padding-top: 20px;
-  .MenuList{
+  .MenuList {
     position: absolute;
     top: 50px;
-    background-color: #F6F6F6;
+    background-color: #f6f6f6;
   }
   li {
     display: flex;

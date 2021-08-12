@@ -20,7 +20,6 @@ export default {
 <style scoped lang="less">
 .Nav {
   width: 100%;
-  // background-color: #4b4b4b;
   height: 46px;
   display: flex;
   align-items: center;

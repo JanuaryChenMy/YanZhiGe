@@ -26,7 +26,7 @@ export default {
   text-align: center;
   color: #2c3e50;
   .routerView {
-    height: calc(100vh - 50px);
+    height: calc(100vh - 46px);
     overflow: scroll;
   }
 }

@@ -201,7 +201,7 @@ export default {
 .MenuList {
   width: 100%;
   height: 100%;
-  height: calc(100vh - 50px);
+  height: calc(100vh - 46px);
   overflow-y: scroll;
   text-align: left;
   background-color: #f6f6f6;
